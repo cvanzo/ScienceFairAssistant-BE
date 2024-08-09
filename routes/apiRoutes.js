@@ -6,8 +6,11 @@ const multer = require('multer');
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-// Define the route for file upload
-router.post('/upload', upload.single('file'), uploadFile);
+// Configure multer to accept multiple files with the field name 'files'
+const uploadMultiple = upload.array('files'); 
+
+// Use the middleware in your upload route
+router.post('/upload', uploadMultiple, uploadFile);
 
 // Define the route for asking a question
 router.post('/ask', askQuestion);
